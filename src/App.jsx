@@ -247,12 +247,12 @@ function App() {
             </div>
 
             <img
-              src="/images/hero-car.png"
-              alt="McLaren 720S Sports Car"
-              className="car-image"
-              ref={carRef}
-              onLoad={() => ScrollTrigger.refresh()}
-            />
+                src={`${import.meta.env.BASE_URL}images/hero-car.png`}
+                alt="McLaren 720S Sports Car"
+                className="car-image"
+                ref={carRef}
+                onLoad={() => ScrollTrigger.refresh()}
+              />
           </div>
 
           {STATS_DATA.map((stat, index) => (
