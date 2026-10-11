@@ -1,4 +1,4 @@
-# Scroll-Driven Hero Animation 🏎️⚡
+# Scroll-Driven Hero Animation 🏎️
 
 A high-performance, responsive scroll-driven hero section inspired by [paraschaturvedi.github.io/car-scroll-animation](https://paraschaturvedi.github.io/car-scroll-animation). Built using **React (Vite)**, **GSAP**, **GSAP ScrollTrigger**, and **Bootstrap 5**.
 
@@ -6,7 +6,7 @@ The website is focused exclusively on the scroll-animation hero experience: feat
 
 ---
 
-## 🌟 Key Features
+##  Key Features
 
 1. **Synchronized Scroll-Driven Motion**:
    - The sports car travels across the track linked 1:1 to user scroll position via `ScrollTrigger`'s `scrub: 1`.
@@ -43,7 +43,7 @@ The website is focused exclusively on the scroll-animation hero experience: feat
 
 ---
 
-## 🚀 Getting Started Locally
+##  Getting Started Locally
 
 ### 1. Install Dependencies
 ```bash
@@ -62,5 +62,5 @@ npm run build
 
 ---
 
-## 📄 License
+##  License
 MIT License. Created for educational and demonstration purposes.
