@@ -1,0 +1,469 @@
+
+.app-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 16px 24px;
+  background: rgba(10, 12, 16, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
+}
+
+.brand-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #fef8f8;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
+@keyframes pulse-dot {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+    box-shadow: 0 0 16px var(--color-trail);
+  }
+}
+
+.nav-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  padding: 5px 12px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #94a3b8;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-transform: uppercase;
+}
+
+.scroll-progress-pill {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  background: rgba(20, 24, 32, 0.9);
+  padding: 6px 14px;
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.progress-bar-mini {
+  width: 50px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-fill-mini {
+  height: 100%;
+  width: 0%;
+  background: var(--color-trail);
+  transition: width 0.1s linear;
+}
+
+/* Pinned Scroll Section & Track */
+.hero-scroll-section {
+  position: relative;
+  width: 100%;
+  height: 380vh; /* Extended scroll distance for a relaxed, slower, cinematic transition */
+  background-color: #0b0d11;
+}
+
+.track-stage {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #ceddf3; 
+  
+  background-size: 100% 100%, 40px 40px, 40px 40px;
+  overflow: hidden;
+  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.12);
+}
+
+/* road, car, trail & headline */
+.road-container {
+  width: 100vw;
+  height: 210px;
+  background-color: var(--color-road-bg);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 18px 40px rgba(0, 0, 0, 0.35),
+    inset 0 2px 6px rgba(255, 255, 255, 0.15),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.5);
+  border-top: 3px solid #2d3139;
+  border-bottom: 3px solid #2d3139;
+}
+
+/* road center--dashed */
+.road-container::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.25) 50%, transparent 50%);
+  background-size: 40px 3px;
+  transform: translateY(-50%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* green trail behind the car */
+.speed-trail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  background: var(--color-trail);
+  box-shadow: 0 0 30px rgba(69, 219, 125, 0.45);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* headline container inside the road */
+.headline-wrapper {
+  position: absolute;
+  top: 50%;
+  left: clamp(15rem, 4vw, 56px);
+  transform: translateY(-50%);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: clamp(3px, 0.9vw, 12px);
+  user-select: none;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.value-letter {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6.2vw, 7.2rem);
+  font-weight: 900;
+  line-height: 1;
+  color: #111111;
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.15s ease, transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.15s ease;
+}
+
+.value-letter.space {
+  width: clamp(14px, 2.2vw, 32px);
+}
+
+/* car drives past-> font in rich black */
+.value-letter.revealed {
+  opacity: 1;
+  color: #0d0f12;
+  transform: scale(1);
+}
+
+.car-image {
+  height: 195px;
+  position: absolute;
+  top: 7px;
+  left: 0;
+  z-index: 10;
+  pointer-events: none;
+  filter: drop-shadow(0 14px 16px rgba(0, 0, 0, 0.65));
+  will-change: transform;
+}
+
+/* stats cards */
+.stat-card {
+  position: absolute;
+  z-index: 20;
+  padding: 24px 28px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.15);
+  cursor: default;
+  min-width: 220px;
+  max-width: 320px;
+
+  /* hidden before specified scroll percentage */
+  opacity: 0;
+  transform: translateY(28px) scale(0.92);
+  pointer-events: none;
+
+  transition: 
+    opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s ease;
+  will-change: opacity, transform;
+}
+
+.stat-card.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.stat-card.visible:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 22px 45px rgba(0, 0, 0, 0.22);
+}
+
+.stat-num {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 4.2vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -1px;
+  margin-bottom: 6px;
+}
+
+.stat-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0.2px;
+}
+
+.stat-card-yellow {
+  background-color: var(--color-accent-lime);
+  color: #111111;
+  top: 6%;
+  right: 28%;
+}
+
+.stat-card-blue {
+  background-color: var(--color-accent-blue);
+  color: #111111;
+  bottom: 6%;
+  right: 32%;
+}
+
+.stat-card-dark {
+  background-color: var(--color-accent-dark);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  top: 6%;
+  right: 6%;
+}
+.stat-card-dark .stat-num {
+  color: #ffffff;
+}
+
+.stat-card-orange {
+  background-color: var(--color-accent-orange);
+  color: #111111;
+  bottom: 6%;
+  right: 8%;
+}
+
+
+/* Scroll Down Indicator */
+  .scroll-guide {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #1e293b;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.mouse-indicator {
+  width: 22px;
+  height: 36px;
+  border: 2px solid rgb(4, 4, 33);
+  border-radius: 14px;
+  display: flex;
+  justify-content: center;
+  padding-top: 6px;
+}
+
+.mouse-wheel {
+  width: 3px;
+  height: 8px;
+  background-color: rgb(30, 41, 59);
+  border-radius: 2px;
+  animation: mouse-scroll 1.6s infinite ease-in-out;
+}
+
+@keyframes mouse-scroll {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+}
+
+/* Responsive Adaptations*/
+@media (max-width: 1200px) {
+  .headline-wrapper {
+    left: clamp(20px, 3.5vw, 48px);
+  }
+  .stat-card-yellow {
+    top: 5%;
+    right: 26%;
+  }
+  .stat-card-blue {
+    bottom: 5%;
+    right: 30%;
+  }
+  .stat-card-dark {
+    top: 5%;
+    right: 3%;
+  }
+  .stat-card-orange {
+    bottom: 5%;
+    right: 5%;
+  }
+}
+
+@media (max-width: 992px) {
+  .headline-wrapper {
+    left: clamp(16px, 3vw, 40px);
+  }
+  .road-container {
+    height: 170px;
+  }
+  .car-image {
+    height: 155px;
+    top: 7px;
+  }
+  .stat-card {
+    padding: 16px 20px;
+    min-width: 180px;
+  }
+  .stat-num {
+    font-size: 2.5rem;
+  }
+  .stat-label {
+    font-size: 0.85rem;
+  }
+
+  .stat-card-yellow {
+    top: 4%;
+    right: 28%;
+  }
+  .stat-card-blue {
+    bottom: 4%;
+    right: 32%;
+  }
+  .stat-card-dark {
+    top: 4%;
+    right: 4%;
+  }
+  .stat-card-orange {
+    bottom: 4%;
+    right: 6%;
+  }
+}
+
+@media (max-width: 768px) {
+  .road-container {
+    height: 140px;
+  }
+  .car-image {
+    height: 128px;
+    top: 6px;
+  }
+  
+  .headline-wrapper {
+    left: clamp(14px, 2.5vw, 32px);
+  }
+
+  /* on mobile */
+  .stat-card {
+    padding: 12px 14px;
+    border-radius: 12px;
+    min-width: 140px;
+    max-width: 170px;
+  }
+  .stat-num {
+    font-size: 1.8rem;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    line-height: 1.2;
+  }
+
+  .stat-card-yellow {
+    top: 3%;
+    right: 52%;
+  }
+  .stat-card-blue {
+    bottom: 3%;
+    right: 52%;
+  }
+  .stat-card-dark {
+    top: 3%;
+    right: 4%;
+  }
+  .stat-card-orange {
+    bottom: 3%;
+    right: 4%;
+  }
+
+  .scroll-guide {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .headline-wrapper {
+    left: clamp(12px, 2vw, 24px);
+  }
+  .road-container {
+    height: 120px;
+  }
+  .car-image {
+    height: 108px;
+    top: 6px;
+  }
+  .stat-card {
+    padding: 8px 10px;
+    min-width: 120px;
+    max-width: 140px;
+  }
+  .stat-num {
+    font-size: 1.4rem;
+  }
+  .stat-label {
+    font-size: 0.65rem;
+  }
+}
